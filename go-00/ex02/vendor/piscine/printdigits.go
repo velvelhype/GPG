@@ -2,12 +2,12 @@ package piscine
 
 import "ft"
 
-func PrintAlphabet() {
-	c := 'a';
+func PrintDigits() {
+	c := '0';
 	for
 	{
 		ft.PrintRune(c);
-		if c == 'z' {
+		if c == '9' {
 			break
 		}
 		c++;

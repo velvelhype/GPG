@@ -2,15 +2,15 @@ package piscine
 
 import "ft"
 
-func PrintAlphabet() {
-	c := 'a';
+func PrintReverseAlphabet() {
+	c := 'z';
 	for
 	{
 		ft.PrintRune(c);
-		if c == 'z' {
+		if c == 'a' {
 			break
 		}
-		c++;
+		c--;
 	}
 	ft.PrintRune('\n');
 }
