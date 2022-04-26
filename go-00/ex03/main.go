@@ -1,5 +1,7 @@
 package main
+
 import "piscine"
+
 func main() {
 piscine.IsNegative(2222222222222222221)
 piscine.IsNegative(2147483648)

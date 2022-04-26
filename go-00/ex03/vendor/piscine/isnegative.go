@@ -2,8 +2,8 @@ package piscine
 
 import "ft"
 
-func IsNegative(n int){
-	if n < 0 {
+func IsNegative(nb int){
+	if nb < 0 {
 		ft.PrintRune('T')
 		ft.PrintRune('\n')
 	} else {
