@@ -8,7 +8,7 @@ import (
 func main() {
 	a := 13
 	b := 2
-	piscine.UltimateDivMod(&a, &b)
+	piscine.UltimateDivMod(nil, &b)
 	fmt.Println(a)
 	fmt.Println(b)
 }
