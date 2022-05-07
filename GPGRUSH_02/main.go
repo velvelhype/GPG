@@ -3,463 +3,459 @@ package main
 import "fmt"
 import "math/rand"
 import "piscine"
+import "os"
+import "strconv"
 
-func output(str string, board [][]string) {
+func output(str string, board []string) {
 	fmt.Print(str);
 	fmt.Println("=========\n");
 	for h := 0; h < len(board); h++{ 
-		for i := 0; i < len(board[h]); i++{ 
-			for j := 0; j < len(board[h][i]); j++{
-				fmt.Print(string(board[h][i][j]))
-				// fmt.Print(" ")
-			}
+		print(board[h])
 		fmt.Println("")
 	}
 		fmt.Println("\nanswer--\n")
-		piscine.FOVSecuring(board[h])
-		// fmt.Println("dummy!!\n")
+		piscine.FOVSecuring(board)
 		fmt.Println("")
-	}
 }
 
-func randFit()string {
-	if rand.Intn(7) == 1 {
-		return (string)('0' + rand.Intn(8) + 1)
-	} else {
-		return (string)('.')
+func randFit(max int)string {
+	//Change the arg os the rand.Intn for the currency of the '.'.
+	str := ""
+	for i := 0; i < max; i++{
+		if rand.Intn(15) == 1 {
+			str += (string)('0' + rand.Intn(7) + 2)
+		} else {
+			str += (string)('.')
+		}
 	}
+	return str
 }
 
 func main() {
 	fmt.Println("//////////////////////////////////////////");
 	fmt.Println("random maps");
 	fmt.Println("//////////////////////////////////////////\n");
-	board := [][]string{
-		{
-			".....",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
+
+	for at := 0; at < 100; at++ {
+	max, _ := strconv.Atoi(os.Args[1]);
+	board := []string{
 	}
-	for i := 0; i < 100; i++{
-		for i := 0; i < 5; i++{
-			board[0][i] = randFit();
-			board[0][i] += randFit();
-			board[0][i] += randFit();
-			board[0][i] += randFit();
-			board[0][i] += randFit();
-		}
+	for i := 0; i < max; i++{
+		board = append(board, "")
+	}
+	for j := 0; j < max; j++{
+		board[j] = randFit(max)
+	}
 	output("rand_test", board)
-	}
-	return
-
-	fmt.Println("//////////////////////////////////////////");
-	fmt.Println("valid maps");
-	fmt.Println("//////////////////////////////////////////\n");
-
-	fmt.Println("\n----success_cases-----");
-
-	board = [][]string{
-		{
-			"...2.",
-			"..6.4",
-			"5...6",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("pdf_v1", board)
-
-	board = [][]string{
-		{
-			".....",
-			"8.8..",
-			".7.7.",
-			"..8.5",
-			".....",
-		},
-	}
-	output("pdf_v2", board)
-
-	board = [][]string{
-		{
-			"37...",
-			"..8..",
-			".....",
-			"..8..",
-			"...69",
-		},
-	}
-	output("pdf_v3", board)
-
-
-	board = [][]string{
-		{
-			"9....",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("pdf_v3", board)
-
-	fmt.Println("\n----fail_cases-----");
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			"..33.",
-			"..3..",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("v1", board)
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
-	}
-
-	fmt.Println("//////////////////////////////////////////");
-	fmt.Println("invalid maps---------");
-	fmt.Println("//////////////////////////////////////////\n");
-
-	board = [][]string{
-		{
-			"...",
-		},
-	}
-	output("pdf_inv1", board)
-
-	board = [][]string{
-		{
-			"...A.",
-			"..6.4",
-			"5....6",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("pdf_inv2", board)
-
-	board = [][]string{
-		{
-			"BBBBB",
-			"BBBBB",
-			"BB9BB",
-			"BBBBB",
-			"BBBBB",
-		},
-	}
-	output("pdf_inv2", board)
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			"B....",
-			".....",
-			".....",
-		},
-	}
-	output("B_contaminated", board)
-	return;
-
-	fmt.Println("//////////////////////////////////////////");
-	fmt.Println("random ---------");
-	fmt.Println("//////////////////////////////////////////\n");
-
-	board = [][]string{
-		{
-			"...1.",
-			"..6.4",
-			"5..3.",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"...2.",
-			"..6.4",
-			"5....",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			"...1.",
-			"..6.4",
-			"5....6",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			"...3.",
-			"..6.4",
-			"5....6",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			"...6.",
-			"..6.4",
-			"5....6",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			"...1.",
-			"..6.4",
-			"5....",
-			"7.6..",
-			".3...",
-		},
-	}
-	output("random", board)
-
-	board = [][]string{
-		{
-			".....",
-			".....",
-			"..3..",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-	board = [][]string{
-		{
-			".....",
-			".....",
-			"..3..",
-			"...5.",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".22..",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".2...",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".3.3.",
-			".....",
-			".4.3.",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".33..",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".88..",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".....",
-			".4.4.",
-			".4.4.",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"5....",
-			".5...",
-			"..5..",
-			"...5.",
-			"....5",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"6....",
-			".....",
-			".6...",
-			"...6.",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"7....",
-			".7...",
-			"..7..",
-			"...7.",
-			"....7",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			".3...",
-			"..3..",
-			"..3..",
-			"..3..",
-			"..3..",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"..3..",
-			"..3..",
-			"..3..",
-			"..3..",
-			"..3..",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"..5..",
-			"..5..",
-			"..5..",
-			"..5..",
-			"..5..",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"...3.",
-			".5.3.",
-			".....",
-			".2...",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"...4.",
-			".5...",
-			".....",
-			".37..",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"3...5",
-			".....",
-			".....",
-			".....",
-			".....",
-		},
-	}
-	output("empty", board)
-
-	board = [][]string{
-		{
-			"99999",
-			"99999",
-			"99999",
-			"99999",
-			"99999",
-		},
-	}
-	output("empty", board)
 }
+	// }
+	return
+}
+	// fmt.Println("//////////////////////////////////////////");
+	// fmt.Println("valid maps");
+	// fmt.Println("//////////////////////////////////////////\n");
+
+	// fmt.Println("\n----success_cases-----");
+
+	// board = [][]string{
+	// 	{
+	// 		"...2.",
+	// 		"..6.4",
+	// 		"5...6",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("pdf_v1", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		"8.8..",
+	// 		".7.7.",
+	// 		"..8.5",
+	// 		".....",
+	// 	},
+	// }
+	// output("pdf_v2", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"37...",
+	// 		"..8..",
+	// 		".....",
+	// 		"..8..",
+	// 		"...69",
+	// 	},
+	// }
+	// output("pdf_v3", board)
+
+
+	// board = [][]string{
+	// 	{
+	// 		"9....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("pdf_v3", board)
+
+	// fmt.Println("\n----fail_cases-----");
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		"..33.",
+	// 		"..3..",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("v1", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+
+	// fmt.Println("//////////////////////////////////////////");
+	// fmt.Println("invalid maps---------");
+	// fmt.Println("//////////////////////////////////////////\n");
+
+	// board = [][]string{
+	// 	{
+	// 		"...",
+	// 	},
+	// }
+	// output("pdf_inv1", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...A.",
+	// 		"..6.4",
+	// 		"5....6",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("pdf_inv2", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"BBBBB",
+	// 		"BBBBB",
+	// 		"BB9BB",
+	// 		"BBBBB",
+	// 		"BBBBB",
+	// 	},
+	// }
+	// output("pdf_inv2", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		"B....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("B_contaminated", board)
+	// return;
+
+	// // zero and 1
+
+	// fmt.Println("//////////////////////////////////////////");
+	// fmt.Println("random ---------");
+	// fmt.Println("//////////////////////////////////////////\n");
+	// board = [][]string{
+	// 	{
+	// 		"...1.",
+	// 		"..6.4",
+	// 		"5..3.",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...2.",
+	// 		"..6.4",
+	// 		"5....",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...1.",
+	// 		"..6.4",
+	// 		"5....6",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...3.",
+	// 		"..6.4",
+	// 		"5....6",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...6.",
+	// 		"..6.4",
+	// 		"5....6",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...1.",
+	// 		"..6.4",
+	// 		"5....",
+	// 		"7.6..",
+	// 		".3...",
+	// 	},
+	// }
+	// output("random", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		"..3..",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".....",
+	// 		"..3..",
+	// 		"...5.",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".22..",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".2...",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".3.3.",
+	// 		".....",
+	// 		".4.3.",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".33..",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".88..",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".....",
+	// 		".4.4.",
+	// 		".4.4.",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"5....",
+	// 		".5...",
+	// 		"..5..",
+	// 		"...5.",
+	// 		"....5",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"6....",
+	// 		".....",
+	// 		".6...",
+	// 		"...6.",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"7....",
+	// 		".7...",
+	// 		"..7..",
+	// 		"...7.",
+	// 		"....7",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		".3...",
+	// 		"..3..",
+	// 		"..3..",
+	// 		"..3..",
+	// 		"..3..",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"..3..",
+	// 		"..3..",
+	// 		"..3..",
+	// 		"..3..",
+	// 		"..3..",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"..5..",
+	// 		"..5..",
+	// 		"..5..",
+	// 		"..5..",
+	// 		"..5..",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...3.",
+	// 		".5.3.",
+	// 		".....",
+	// 		".2...",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"...4.",
+	// 		".5...",
+	// 		".....",
+	// 		".37..",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"3...5",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 		".....",
+	// 	},
+	// }
+	// output("empty", board)
+
+	// board = [][]string{
+	// 	{
+	// 		"99999",
+	// 		"99999",
+	// 		"99999",
+	// 		"99999",
+	// 		"99999",
+	// 	},
+	// }
+	// output("empty", board)
